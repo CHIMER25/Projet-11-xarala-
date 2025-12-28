@@ -1,0 +1,27 @@
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "3000:3000"
+    environment:
+      - MONGO_URI=mongodb://db:27017/focusflow
+    networks:
+      - coach-net
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "80:80" # Accessible via navigateur sur le port 80
+    networks:
+      - coach-net
+
+  db:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    networks:
+      - coach-net
+
+networks:
+  coach-net:
+    driver: bridge
